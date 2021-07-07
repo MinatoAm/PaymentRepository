@@ -1,12 +1,16 @@
-package com.example.testapplication.ui
+package com.example.testapplication
 
 import android.app.Application
+import android.util.Log
 import com.example.testapplication.api.AuthInterceptor
 import com.example.testapplication.api.HeaderInterceptor
 import com.example.testapplication.api.NetworkService
 import com.example.testapplication.repositories.LoginRepository
 import com.example.testapplication.repositories.LoginRepositoryImpl
-import com.example.testapplication.ui.viewModel.LoginViewModel
+import com.example.testapplication.repositories.PaymentsRepository
+import com.example.testapplication.repositories.PaymentsRepositoryImpl
+import com.example.testapplication.viewModel.LoginViewModel
+import com.example.testapplication.viewModel.PaymentsViewModel
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -32,13 +36,17 @@ class PaymentsApplication : Application() {
     }
 
     private val diModule = module {
-        single { provideRetrofit() }
+        single { provideRetrofit()}
         single { AuthInterceptor() }
         factory { provideNetworkApi(get()) }
         single<LoginRepository> { LoginRepositoryImpl(get()) }
+        single<PaymentsRepository> { PaymentsRepositoryImpl(get()) }
 
         viewModel {
-            LoginViewModel(get(), get())
+            LoginViewModel(get())
+        }
+        viewModel {
+            PaymentsViewModel(get())
         }
 
     }

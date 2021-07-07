@@ -5,16 +5,22 @@ import okhttp3.Response
 
 class AuthInterceptor : Interceptor {
 
-    var token: String? = null
+    companion object{
+        var token: String? = null
+    }
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        var req = chain.request()
-        // DONT INCLUDE API KEYS IN YOUR SOURCE CODE
-        token?.apply {
-            val url =
-                req.url.newBuilder().addQueryParameter("token", token).build() // TODO set token
-            req = req.newBuilder().url(url).build()
-        }
-        return chain.proceed(req)
+        val original = chain.request()
+        val originalHttpUrl = original.url
+
+        val url = originalHttpUrl.newBuilder()
+            .addQueryParameter("token", token)
+            .build()
+
+        val requestBuilder = original.newBuilder()
+            .url(url)
+
+        val request = requestBuilder.build()
+        return chain.proceed(request)
     }
 }

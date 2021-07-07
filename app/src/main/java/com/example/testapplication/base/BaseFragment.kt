@@ -16,7 +16,7 @@ abstract class BaseFragment: Fragment(), IBaseFragment {
         button.isEnabled = false
     }
 
-    protected fun hideLoading(button: MaterialButton){
+    protected fun hideLoading(button: Button){
         button.isEnabled = true
     }
 }

@@ -1,10 +1,10 @@
 package com.example.testapplication
 
 import android.content.Context
-import com.example.testapplication.R
+import com.example.testapplication.helper.showLoginFailedDialog
 
 fun showError(
     context: Context, errorMassage: String
 ) {
-    showLoginFailedDialog(context, R.string.error_login_failed)
+    showLoginFailedDialog(context, errorMassage)
 }

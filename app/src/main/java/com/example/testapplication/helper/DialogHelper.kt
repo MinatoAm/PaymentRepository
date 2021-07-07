@@ -1,10 +1,10 @@
-package com.example.testapplication
+package com.example.testapplication.helper
 
 import android.app.AlertDialog
 import android.content.Context
 import com.example.testapplication.R
 
-fun showLoginFailedDialog(context: Context, messageResId: Int) {
+fun showLoginFailedDialog(context: Context, messageResId: String) {
     val builder = AlertDialog.Builder(context)
     try {
         builder.setMessage(messageResId)
